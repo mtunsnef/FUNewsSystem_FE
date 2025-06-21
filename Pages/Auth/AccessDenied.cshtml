@@ -1,0 +1,21 @@
+﻿@page "/access-denied"
+
+@{
+    ViewData["Title"] = "Từ chối truy cập";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="~/css/accessdenied/main.css">
+
+<div class="access-denied-container">
+    <div class="access-denied-card">
+        <div class="icon-box">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2>Truy cập bị chặn</h2>
+        <p>Bạn không có quyền truy cập vào trang này.</p>
+        <a href="/trang-chu" class="btn-back-home">
+            <i class="fas fa-home"></i> Về trang chủ
+        </a>
+    </div>
+</div>

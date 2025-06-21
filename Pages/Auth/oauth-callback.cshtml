@@ -1,0 +1,50 @@
+﻿@page "/oauth-callback"
+@model FUNewsSystem.FE.Pages.Auth.oauth_callbackModel
+@{
+}
+
+    <h2>OAuth Callback Page</h2>
+    <div id="message"></div>
+
+    <script>
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const pairs = queryString.split("&");
+            for (const pair of pairs) {
+                const [key, value] = pair.split("=");
+                if (key) {
+                    params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+                }
+            }
+            return params;
+        }
+
+        const params = getQueryParams();
+        const messageDiv = document.getElementById("message");
+
+        if (params.error) {
+            messageDiv.textContent = `Lỗi: ${params.error}`;
+        } else if (params.token) {
+        localStorage.setItem("access_token", params.token);
+            messageDiv.textContent = "Đăng nhập thành công! Token đã được lưu.";
+
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 2000);
+        } else if (params.register === "true") {
+            messageDiv.innerHTML = `
+                <p>Tài khoản mới, vui lòng hoàn thiện thông tin đăng ký.</p>
+                <p>Email: ${params.email || ""}</p>
+                <p>Họ tên: ${params.name || ""}</p>
+                <p><strong>externalId:</strong> ${params.externalId || ""}</p>
+                <button id="btnCompleteRegister">Hoàn tất đăng ký</button>
+            `;
+
+            document.getElementById("btnCompleteRegister").addEventListener("click", () => {
+                alert("Bạn có thể xử lý đăng ký thêm ở đây (gọi API backend...)");
+            });
+        } else {
+            messageDiv.textContent = "Không có dữ liệu hợp lệ.";
+        }
+    </script>

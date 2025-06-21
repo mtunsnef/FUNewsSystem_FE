@@ -1,0 +1,70 @@
+﻿@page "/dang-nhap"
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+<div class="auth-container">
+    <div class="auth-header">
+        <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="logo-icon">
+                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v13Z" />
+                <path d="M8 6h8" />
+                <path d="M8 10h8" />
+                <path d="M8 14h4" />
+            </svg>
+            <h1>FUNews</h1>
+        </a>
+        <h2>Đăng nhập vào tài khoản</h2>
+    </div>
+    <form class="auth-form">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-options">
+            <label><input type="checkbox" name="remember"> Ghi nhớ tôi</label>
+            <a href="#">Quên mật khẩu?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+    </form>
+    <div class="social-login">
+        <p>Hoặc đăng nhập với</p>
+        <div class="social-buttons">
+            <button id="btnGoogle" class="btn-social google">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path fill="#EA4335"
+                          d="M22.56,12.25C22.56,11.47,22.5,10.72,22.38,10H12.27V14.44H18.07C17.81,15.8,17.09,16.93,15.99,17.71V20.15H19.5C21.52,18.32,22.56,15.52,22.56,12.25Z" />
+                    <path fill="#4285F4"
+                          d="M12.27,24C15.3,24,17.87,23.03,19.5,21.4L15.99,18.96C15.03,19.66,13.76,20.07,12.27,20.07C9.69,20.07,7.5,18.39,6.73,16.04H3.09V18.57C4.75,21.83,8.26,24,12.27,24Z" />
+                    <path fill="#FBBC05"
+                          d="M6.73,15.22C6.49,14.52,6.36,13.77,6.36,13C6.36,12.23,6.49,11.48,6.73,10.78V8.25H3.09C2.02,10.24,1.44,12.47,1.44,15C1.44,17.53,2.02,19.76,3.09,21.75L6.73,19.22V15.22Z" />
+                    <path fill="#34A853"
+                          d="M12.27,5.93C13.86,5.93,15.11,6.5,16.08,7.41L19.57,4.1C17.87,2.59,15.3,1.5,12.27,1.5C8.26,1.5,4.75,4.17,3.09,7.43L6.73,9.96C7.5,7.61,9.69,5.93,12.27,5.93Z" />
+                </svg>
+                Google
+            </button>
+            <button id="btnFacebook" class="btn-social facebook">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path fill="#1877F2"
+                          d="M22,12c0-5.52-4.48-10-10-10S2,6.48,2,12c0,4.84,3.44,8.87,8,9.8V15H8v-3h2V9.5C10,7.57,11.57,6,13.5,6H16v3h-1.7c-0.9,0-1.03,0.43-1.03,1.03V12h2.7l-0.4,3H13.23v6.8C18.56,20.87,22,16.84,22,12Z" />
+                </svg>
+                Facebook
+            </button>
+        </div>
+    </div>
+    <p class="auth-switch">Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
+</div>
+<div id="global-loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+</div>
+
+<script src="~/js/auth/login.js"></script>
+<script src="~/js/toast.js"></script>
+<script src="~/js/loading.js"></script>
+<script src="~/js/auth/external-login.js"></script>

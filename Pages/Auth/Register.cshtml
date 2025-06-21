@@ -1,0 +1,43 @@
+﻿@page "/dang-ky"
+<div class="auth-container">
+    <div class="auth-header">
+        <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="logo-icon">
+                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v13Z" />
+                <path d="M8 6h8" />
+                <path d="M8 10h8" />
+                <path d="M8 14h4" />
+            </svg>
+            <h1>FUNews</h1>
+        </a>
+        <h2>Tạo tài khoản mới</h2>
+    </div>
+    <form class="auth-form">
+        <div class="form-group">
+            <label for="username">Tên người dùng</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Xác nhận mật khẩu</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <div class="form-group">
+            <label class="terms-label">
+                <input type="checkbox" name="terms" required> Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a> và
+                <a href="#">Chính sách bảo mật</a>.
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+    </form>
+    <p class="auth-switch">Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+</div>
