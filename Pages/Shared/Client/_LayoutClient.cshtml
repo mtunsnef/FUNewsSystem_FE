@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="~/css/style.css">
+    <script src="~/js/auth/auth-manager.js"></script>
+    <script src="~/js/script.js"></script>
+    <script src="~/js/auth/myinfo.js"></script>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📰</text></svg>">
+</head>
+<body>
+    @Html.Partial("Client/_Header") <!-- end header -->
+    @RenderBody()
+    @Html.Partial("Client/_Footer") <!-- end footer -->
+</body>
+</html>
