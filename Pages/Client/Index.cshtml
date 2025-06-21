@@ -1,0 +1,88 @@
+﻿@page "/trang-chu"
+@{
+    ViewData["Title"] = "Trang Tin Tức";
+}
+
+<main class="container">
+    <section class="featured-article-section">
+        <div class="featured-carousel-wrapper">
+            <div class="featured-carousel" id="featured-carousel"></div>
+            <div class="carousel-dots" id="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="recent-articles-section" id="tin-moi-nhat">
+        <h2 class="section-title">Tin Mới Nhất</h2>
+        <div class="articles-grid" id="top-articles"></div>
+    </section>
+
+    <section class="category-highlight-section" id="cong-nghe">
+        <div class="section-header">
+            <h2 class="section-title">Công nghệ</h2>
+            <a href="/category/25" class="view-all-link">
+                Xem tất cả
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     style="vertical-align: middle; margin-left: 3px;">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+        </div>
+        <div class="articles-grid articles-grid-small" id="academics-articles"></div>
+    </section>
+    <section class="category-highlight-section" id="kinh-doanh">
+        <div class="section-header">
+            <h2 class="section-title">Giải trí</h2>
+            <a href="/category/26" class="view-all-link">
+                Xem tất cả
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     style="vertical-align: middle; margin-left: 3px;">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+        </div>
+        <div class="articles-grid articles-grid-horizontal"></div>
+    </section>
+</main>
+<script src="~/js/load-newsarticle.js"></script>
+<script>
+    let currentSlide = 0;
+    let totalSlides = 0;
+
+    function startFeaturedCarousel() {
+        const carousel = document.querySelector('.featured-carousel');
+        const dots = document.querySelectorAll('.dot');
+        const slides = document.querySelectorAll('.featured-article');
+        totalSlides = slides.length;
+
+        function goToSlide(index) {
+            const offset = -index * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[index % 3].classList.add("active");
+            currentSlide = index;
+        }
+
+        dots.forEach((dot, idx) => {
+            dot.addEventListener("click", () => {
+                const target = Math.floor((currentSlide / 3)) * 3 + idx;
+                if (target < totalSlides) {
+                    goToSlide(target);
+                }
+            });
+        });
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }, 4500);
+    }
+</script>
