@@ -1,0 +1,52 @@
+﻿  @page "/dashboard"
+@model FUNewsSystem.FE.Pages.Admin.DashboardModel
+@{
+    Layout = "/Pages/Shared/Admin/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+<div class="stats">
+    <div class="stat-card">
+        <h3>Total Income</h3>
+        <div class="stat-value">
+            $1200
+            <span>+45%</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <h3>Total Expense</h3>
+        <div class="stat-value">
+            4.500K
+            <span>+45%</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <h3>Total Bonus</h3>
+        <div class="stat-value">
+            6.100k
+            <span>+45%</span>
+        </div>
+    </div>
+</div>
+
+<div class="chart-container">
+    <canvas id="mainChart"></canvas>
+</div>
+
+<div class="bottom-cards">
+    <div class="card">
+        <div class="card-header">
+            <h3>Order Statistics</h3>
+            <div class="more-button">⋮</div>
+        </div>
+        <canvas id="orderChart"></canvas>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Earnings Overview</h3>
+            <div class="more-button">⋮</div>
+        </div>
+        <canvas id="earningsChart"></canvas>
+    </div>
+
+</div>
