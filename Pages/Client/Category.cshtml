@@ -1,0 +1,196 @@
+﻿@page "/category/{id:int}"
+@model FUNewsSystem.FE.Pages.Client.CategoryModel
+@{
+    ViewData["Title"] = "Loại tin";
+    var categoryId = Convert.ToInt32(RouteData.Values["id"]);
+}
+<section class="category-highlight-section">
+    <div class="section-header">
+        <h2 id="category-title" class="section-title"></h2>
+    </div>
+
+    <div id="category-articles" class="articles-list article-grid"></div>
+</section>
+
+<style>
+    /* ==== LIGHT MODE (Mặc định) ==== */
+    .category-highlight-section {
+        padding: 30px 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #222;
+    }
+
+    .view-all-link {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    .view-all-link:hover {
+        color: #0056b3;
+    }
+
+    .article-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .article-card {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        background: white;
+    }
+
+    .article-card:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-image-link img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+    }
+
+    .article-card-content {
+        padding: 15px;
+    }
+
+    .article-card-content h3 {
+        font-size: 1.1rem;
+        margin: 0 0 10px;
+        color: #333;
+    }
+
+    .article-meta {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+
+    /* ==== DARK MODE ==== */
+    [data-theme="dark"] .category-highlight-section {
+        background-color: #121212;
+    }
+
+    [data-theme="dark"] .section-header {
+        border-bottom-color: #333;
+    }
+
+    [data-theme="dark"] .section-title {
+        color: #fff;
+    }
+
+    [data-theme="dark"] .view-all-link {
+        color: #66b0ff;
+    }
+
+    [data-theme="dark"] .view-all-link:hover {
+        color: #88c9ff;
+    }
+
+    [data-theme="dark"] .article-card {
+        background-color: #1e1e1e;
+        border-color: #333;
+    }
+
+    [data-theme="dark"] .article-card:hover {
+        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+    }
+
+    [data-theme="dark"] .article-card-content h3 {
+        color: #ddd;
+    }
+
+    [data-theme="dark"] .article-meta {
+        color: #aaa;
+    }
+</style>
+
+<script>
+    const categoryId = @categoryId;
+
+    function loadArticlesByCategory() {
+        const $container = $("#category-articles");
+        $container.empty();
+
+        const filter = `(Category/CategoryId eq ${categoryId} or Category/ParentCategory/CategoryId eq ${categoryId})`;
+        const url = `https://funewsapi.azurewebsites.net/odata/NewsArticle?$expand=Category($expand=ParentCategory),CreatedBy&$filter=${encodeURIComponent(filter)}`;
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                const articles = data;
+                if (articles.length === 0) {
+                    $container.html("<p>Không có bài viết nào trong chuyên mục này.</p>");
+                    return;
+                }
+                    const categoryTitleEl = document.getElementById('category-title');
+                    const mainCategory = articles[0].Category;
+                    const parent = mainCategory.ParentCategory;
+
+                    if (mainCategory.CategoryId === categoryId) {
+                        categoryTitleEl.textContent = mainCategory.CategoryName;
+                    } else if (parent && parent.CategoryId === categoryId) {
+                        categoryTitleEl.textContent = parent.CategoryName;
+                    } else {
+                        categoryTitleEl.textContent = mainCategory.CategoryName;
+                    }
+
+                articles.forEach(article => {
+                    const title = article.NewsTitle || "Không có tiêu đề";
+                    const author = article.CreatedBy?.AccountName || "Ẩn danh";
+                    const createdDate = formatVNDate(article.CreatedDate);
+                    const imageSrc = article.ImageTitle || "/placeholder.svg?width=300&height=170";
+
+                    const html = `
+                        <article class="article-card">
+                            <a href="/chi-tiet/${article.NewsArticleId}" class="article-image-link">
+                                <img src="${imageSrc}" alt="${title}">
+                            </a>
+                            <div class="article-card-content">
+                                <h3><a href="/chi-tiet/${article.NewsArticleId}">${title}</a></h3>
+                                <div class="article-meta">
+                                    <span>${author}</span> &bull; <span>${createdDate}</span>
+                                </div>
+                            </div>
+                        </article>`;
+                    $container.append(html);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi khi tải bài viết:", error);
+                $container.html("<p style='color:red;'>Không thể tải bài viết.</p>");
+            }
+        });
+    }
+
+    function formatVNDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("vi-VN");
+    }
+
+    $(document).ready(function () {
+        loadArticlesByCategory();
+    });
+</script>
