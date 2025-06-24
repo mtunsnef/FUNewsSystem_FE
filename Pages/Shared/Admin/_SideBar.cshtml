@@ -1,0 +1,47 @@
+﻿<div class="sidebar">
+    <a href="/Dashboard" class="sidebar-icon active" data-tooltip="Home">
+        <i class="bx bx-home"></i>
+    </a>
+    <a href="/NewsArticles" class="sidebar-icon" data-tooltip="News Articles">
+        <i class="bx bx-briefcase"></i>
+    </a>
+    <a href="/Category" class="sidebar-icon" data-tooltip="Category">
+        <i class="bx bx-grid-alt"></i>
+    </a>
+    <a href="/Tags" class="sidebar-icon" data-tooltip="Tags">
+        <i class="bx bx-purchase-tag"></i>
+    </a>
+    <a href="/Accounts" class="sidebar-icon" data-tooltip="Accounts">
+        <i class="bx bx-user"></i>
+    </a>
+    <a href="/Settings" class="sidebar-icon" data-tooltip="Settings">
+        <i class="bx bx-cog"></i>
+    </a>
+    <a href="/Auth/Logout" class="sidebar-icon" data-tooltip="Logout">
+        <i class="bx bx-log-in-circle"></i>
+    </a>
+</div>
+@* <div class="sidebar-icon" data-tooltip="Payments"> *@
+@*     <i class="bx bx-credit-card"></i> *@
+@* </div> *@
+@* <div class="sidebar-icon" data-tooltip="Analytics"> *@
+@*     <i class="bx bx-bar-chart"></i> *@
+@* </div> *@
+@* <div class="sidebar-icon" data-tooltip="Help"> *@
+@*     <i class="bx bx-help-circle"></i> *@
+@* </div> *@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentPath = window.location.pathname.toLowerCase(); // Chuyển về chữ thường
+        const sidebarLinks = document.querySelectorAll(".sidebar a");
+
+        sidebarLinks.forEach(link => {
+            if (link.getAttribute("href").toLowerCase() === currentPath) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
+            }
+        });
+    });
+</script>
+
