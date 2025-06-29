@@ -1470,6 +1470,11 @@ footer {
     align-items: flex-end;
 }
 
+.align-items-center {
+    align-items: center;
+}
+
+
 .flex-wrap {
     flex-wrap: wrap;
 }
@@ -2059,6 +2064,10 @@ footer {
 
 .dot.active {
     background-color: #333;
+}
+
+.mb-0 {
+    margin-bottom: 0rem !important;
 }
 
 .mb-1 {
