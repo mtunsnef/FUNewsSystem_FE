@@ -1,7 +1,8 @@
-﻿class AuthManager {
+﻿// wwwroot/js/core/auth-manager.js
+class AuthManager {
     static ACCESS_KEY = 'access_token';
     static ACCESS_EXP = 'access_token_exp';
-    static REFRESH_URL = 'https://funewsapi.azurewebsites.net/api/Auth/refresh';
+    static REFRESH_URL = '/api/Auth/refresh';
 
     static setToken(token) {
         localStorage.setItem(this.ACCESS_KEY, token);
@@ -23,11 +24,11 @@
     }
 
     static init() {
+        // fallback cho jQuery ajax nếu dùng song song
         const self = this;
 
         $(document).ajaxSend(async function (_e, jqXHR, settings) {
             if (settings.url.includes('/api/Auth/refresh')) return;
-
             const token = await self.#refreshIfNeeded();
             if (token) jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
         });
@@ -45,35 +46,32 @@
     static async #refreshIfNeeded() {
         const token = this.getToken();
         if (!token) return null;
-
         if (!this.#isAboutToExpire(40)) return token;
 
         try {
-            console.log('Token sắp hết, gọi refresh…');
-            const data = await $.ajax({
-                url: this.REFRESH_URL,
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ accessToken: token })
+            const res = await fetch(this.REFRESH_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ accessToken: token }),
             });
 
+            const data = await res.json();
             if (data?.accessToken) {
-                console.log('Refresh thành công!');
                 this.setToken(data.accessToken);
                 return data.accessToken;
             }
         } catch (err) {
-            console.error('Refresh thất bại:', err);
+            console.error("Token refresh failed", err);
             this.clearToken();
         }
+
         return null;
     }
 
     static #isAboutToExpire(bufferSec = 60) {
         const exp = parseInt(localStorage.getItem(this.ACCESS_EXP) || '0', 10);
-        if (!exp) return true;
         const now = Math.floor(Date.now() / 1000);
-        return (exp - now) <= bufferSec;
+        return exp === 0 || (exp - now) <= bufferSec;
     }
 
     static #decode(token) {
@@ -82,4 +80,4 @@
     }
 }
 
-$(function () { AuthManager.init(); });
+export default AuthManager;
