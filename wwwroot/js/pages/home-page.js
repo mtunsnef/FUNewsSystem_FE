@@ -3,8 +3,11 @@
 $(document).ready(function () {
     loadAllNewsArticle();
     loadTopArticles();
-    loadAcademicArticles();
+    loadTechnologyArticles();
     loadEntertainmentArticles();
+    loadEucationArticles();
+    loadSportArticles();
+    loadHealthyArticles();
 });
 
 function initFeaturedCarousel() {
@@ -119,13 +122,14 @@ function loadTopArticles() {
 }
 
 // Chuyên mục Công nghệ
-function loadAcademicArticles() {
-    const $container = $("#academics-articles");
+function loadTechnologyArticles() {
+    const $container = $("#technology-articles");
     $container.empty();
 
     getArticlesByCategory("Công nghệ")
-        .then(articles => {
-            articles.forEach(article => {
+        .then(res => {
+            const articleList = res.data;
+            articleList.forEach(article => {
                 const html = generateSmallCardHtml(article);
                 $container.append(html);
             });
@@ -137,20 +141,77 @@ function loadAcademicArticles() {
 
 // Chuyên mục Giải trí
 function loadEntertainmentArticles() {
-    const $container = $("#kinh-doanh .articles-grid");
+    const $container = $("#entertainment-articles");
     $container.empty();
 
     getArticlesByCategory("Giải trí")
-        .then(articles => {
-            articles.forEach(article => {
+        .then(res => {
+            const articleList = res.data;
+            articleList.forEach(article => {
+                const html = generateSmallCardHtml(article);
+                $container.append(html);
+            });
+        })
+        .catch(() => {
+            $container.html("<p style='color:red;'>Không thể tải bài viết.</p>");
+        });
+}
+
+// Chuyên mục Giáo dục
+function loadEucationArticles() {
+    const $container = $("#education-articles");
+    $container.empty();
+
+    getArticlesByCategory("Giáo dục")
+        .then(res => {
+            const articleList = res.data;
+            articleList.forEach(article => {
+                const html = generateSmallCardHtml(article);
+                $container.append(html);
+            });
+        })
+        .catch(() => {
+            $container.html("<p style='color:red;'>Không thể tải bài viết.</p>");
+        });
+}
+
+
+// Chuyên mục Thể thao
+function loadSportArticles() {
+    const $container = $("#sport-articles");
+    $container.empty();
+
+    getArticlesByCategory("Thể thao")
+        .then(res => {
+            const articleList = res.data;
+            articleList.forEach(article => {
                 const html = generateHorizontalCardHtml(article);
                 $container.append(html);
             });
         })
         .catch(() => {
-            $container.html("<p style='color:red;'>Không thể tải bài viết Giải trí.</p>");
+            $container.html("<p style='color:red;'>Không thể tải bài viết.</p>");
         });
 }
+
+// Chuyên mục Suckhoe
+function loadHealthyArticles() {
+    const $container = $("#healthy-articles");
+    $container.empty();
+
+    getArticlesByCategory("Sức khỏe")
+        .then(res => {
+            const articleList = res.data;
+            articleList.forEach(article => {
+                const html = generateHorizontalCardHtml(article);
+                $container.append(html);
+            });
+        })
+        .catch(() => {
+            $container.html("<p style='color:red;'>Không thể tải bài viết.</p>");
+        });
+}
+
 
 // Định dạng ngày
 function formatVNDate(dateString) {
@@ -243,7 +304,7 @@ function generateHorizontalCardHtml(article) {
                 <img src="${imageSrc}" alt="${title}">
             </a>
             <div class="article-card-content">
-                <span class="category-badge">Giải trí</span>
+                <span class="category-badge">${article.Category.ParentCategory.CategoryName}</span>
                 <h3><a href="chi-tiet/${article.NewsArticleId}">${title}</a></h3>
                 <p class="snippet">${short}</p>
                 <div class="article-meta">
