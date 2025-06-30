@@ -1,0 +1,8 @@
+﻿@page "/chi-tiet/{id:guid}"
+@{
+    ViewData["Title"] = "Chi tiết";
+    var id = RouteData.Values["id"];
+}
+<main class="container article-detail-page" id="article-detail" data-id="@id">
+    <p>Đang tải nội dung bài viết...</p>
+</main>

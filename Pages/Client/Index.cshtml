@@ -2,19 +2,53 @@
 @{
     ViewData["Title"] = "Trang Tin Tức";
 }
+<style>
+    .featured-carousel-track-wrapper {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
 
+    .featured-carousel-track {
+        display: flex;
+        transition: transform 0.5s ease;
+        width: 100%;
+    }
+
+    .featured-article {
+        flex: 0 0 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+    }
+
+    .carousel-dots {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-color: #ccc;
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .dot.active {
+        background-color: #000;
+    }
+</style>
 <main class="container">
     <section class="featured-article-section">
         <div class="featured-carousel-wrapper">
-            <div class="featured-carousel" id="featured-carousel"></div>
-            <div class="carousel-dots" id="carousel-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
+            <div class="featured-carousel-track-wrapper">
+                <div class="featured-carousel-track" id="featured-carousel"></div>
             </div>
+            <div class="carousel-dots" id="carousel-dots"></div>
         </div>
     </section>
-
 
     <section class="recent-articles-section" id="tin-moi-nhat">
         <h2 class="section-title">Tin Mới Nhất</h2>
@@ -24,7 +58,7 @@
     <section class="category-highlight-section" id="cong-nghe">
         <div class="section-header">
             <h2 class="section-title">Công nghệ</h2>
-            <a href="/category/25" class="view-all-link">
+            <a href="/category/2" class="view-all-link d-flex align-items-center">
                 Xem tất cả
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -34,12 +68,13 @@
                 </svg>
             </a>
         </div>
-        <div class="articles-grid articles-grid-small" id="academics-articles"></div>
+        <div class="articles-grid articles-grid-small" id="technology-articles"></div>
     </section>
-    <section class="category-highlight-section" id="kinh-doanh">
+
+    <section class="category-highlight-section" id="giai-tri">
         <div class="section-header">
             <h2 class="section-title">Giải trí</h2>
-            <a href="/category/26" class="view-all-link">
+            <a href="/category/3" class="view-all-link d-flex align-items-center">
                 Xem tất cả
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -49,10 +84,58 @@
                 </svg>
             </a>
         </div>
-        <div class="articles-grid articles-grid-horizontal"></div>
+        <div class="articles-grid articles-grid-small" id="entertainment-articles"></div>
+    </section>
+
+
+    <section class="category-highlight-section" id="giao-duc">
+        <div class="section-header">
+            <h2 class="section-title">Giáo dục</h2>
+            <a href="/category/4" class="view-all-link d-flex align-items-center">
+                Xem tất cả
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     style="vertical-align: middle; margin-left: 3px;">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+        </div>
+        <div class="articles-grid articles-grid-small" id="education-articles"></div>
+    </section>
+
+    <section class="category-highlight-section" id="the-thao">
+        <div class="section-header">
+            <h2 class="section-title">Thể thao</h2>
+            <a href="/category/5" class="view-all-link d-flex align-items-center">
+                Xem tất cả
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     style="vertical-align: middle; margin-left: 3px;">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+        </div>
+        <div class="articles-grid articles-grid-horizontal" id="sport-articles"></div>
+    </section>
+
+    <section class="category-highlight-section" id="suc-khoe">
+        <div class="section-header">
+            <h2 class="section-title">Sức khỏe</h2>
+            <a href="/category/11" class="view-all-link d-flex align-items-center">
+                Xem tất cả
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     style="vertical-align: middle; margin-left: 3px;">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+        </div>
+        <div class="articles-grid articles-grid-horizontal" id="healthy-articles"></div>
     </section>
 </main>
-<script src="~/js/load-newsarticle.js"></script>
 <script>
     let currentSlide = 0;
     let totalSlides = 0;
